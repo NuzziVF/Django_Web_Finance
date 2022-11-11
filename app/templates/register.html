@@ -15,7 +15,10 @@
 
 {{ form.errors }}
 
-<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+<p>
+  Already have an account?
+  <a href="{% url 'login' %}"><button>Login</button></a>
+</p>
 
 <script>
   var form_field = document.getElementsByTagName("input");
