@@ -22,5 +22,6 @@ urlpatterns = [
     path("register/", registerPage, name="register"),
     path("login/", loginPage, name="login"),
     path("", homePage, name="home"),
+    path("balance/", balancePage, name="bal"),
     path("logout/", logoutUser, name="logout"),
 ]

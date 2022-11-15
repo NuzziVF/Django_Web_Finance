@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static "login/css/style.css" %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Financing</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <span id="Hello-msg">Hello, {{ request.user }} </span>
+      <span class="balance btn"><a href="{% url 'bal' %}">Balance</a></span>
+      <span class="pastreviews btn"
+        ><a href="{% url 'home' %}">Past Reviews</a></span
+      >
+      <span class="savings btn"><a href="{% url 'home' %}">Savings</a></span>
+      <span class="stonks btn"><a href="{% url 'home' %}">Stocks</a></span>
+      <span class="logout btn"><a href="{% url 'logout' %}">Logout</a></span>
+    </div>
+    {% block home_content %}{% endblock home_content %}
+  </body>
+</html>

@@ -1,14 +1,52 @@
-{% extends 'base.html' %} {% block login_content %}
+{% extends 'homebase.html' %} {% block home_content %}
 <div class="container">
-  <div class="navbar">
-    <span id="Hello-msg">Hello, {{ request.user }} </span>
-    <span class="balance btn"><a href="{% url 'home' %}">Balance</a></span>
-    <span class="pastreviews btn"
-      ><a href="{% url 'home' %}">Past Reviews</a></span
-    >
-    <span class="savings btn"><a href="{% url 'home' %}">Savings</a></span>
-    <span class="stonks btn"><a href="{% url 'home' %}">Stocks</a></span>
-    <span class="logout btn"><a href="{% url 'logout' %}">Logout</a></span>
+  <div id="content">
+    <div class="bal content-bubble">
+      <h1>Current Balance:</h1>
+      <p>[Place Current Balance here]</p>
+      <h2>Previous Transactions:</h2>
+      <ol>
+        <li>List of transactions</li>
+        <li>List of transactions</li>
+        <li>List of transactions</li>
+        <li>List of transactions</li>
+        <li>List of transactions</li>
+      </ol>
+    </div>
+    <div class="earnings content-bubble">
+      <h1>Current Earnings:</h1>
+      <p>
+        [Place Current Earnings here and make them either green for gain or red for loss] {{ name }}
+      </p>
+    </div>
+    <div class="subs content-bubble">
+      <h1>On Going Subscriptions:</h1>
+      <ul>
+        <li>List of Subscriptions</li>
+        <li>List of Subscriptions</li>
+        <li>List of Subscriptions</li>
+        <li>List of Subscriptions</li>
+      </ul>
+    </div>
+    <div class="user-info content-bubble">
+      <h1>User Info:</h1>
+      <p>[User info such as when registered, email to send info, Username]</p>
+    </div>
+    <div class="stock content-bubble">
+      <h1>Stocks:</h1>
+      <p>
+        [Place stock info here such as how much is invested, gained, and loss
+      </p>
+      <ul>
+        <li>Names of Stocks</li>
+        <li>Names of Stocks</li>
+        <li>Names of Stocks</li>
+        <li>Names of Stocks</li>
+        <li>Names of Stocks</li>
+        <li>Names of Stocks</li>
+        <li>Names of Stocks</li>
+      </ol>
+    </div>
   </div>
 </div>
-{% endblock login_content %}
+{% endblock home_content %}

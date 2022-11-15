@@ -4,6 +4,7 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .models import *
 
 # Create your views here.
 
@@ -13,12 +14,12 @@ def registerPage(request):
         return redirect("home")
     else:
         form = CreateUserForm()
-
         if request.method == "POST":
             form = CreateUserForm(request.POST)
             if form.is_valid():
                 form.save()
                 user = form.cleaned_data.get("username")
+                u = create_name(user)
                 messages.success(request, f"Account was created for {user}")
                 return redirect("login")
 
@@ -53,5 +54,46 @@ def logoutUser(request):
 
 @login_required(login_url="login")
 def homePage(request):
-    context = {}
+
+    context = {"name": request.user}
     return render(request, "home.html", context)
+
+
+@login_required(login_url="login")
+def balancePage(request):
+    if request.method == "POST":
+        balance = request.POST.get("bal")
+        bal = create_bal(balance)
+        context = {"bal": bal}
+        person = create_person(find_name(request.user), bal)
+        return render(request, "balance.html", context)
+    return render(request, "balance.html")
+
+
+def create_name(name):
+    u = Name(username=name)
+    u.save()
+    return u
+
+
+def create_bal(bal):
+    b = Banking(balance=bal)
+    b.save()
+    return b
+
+
+def create_person(user, bal):
+    p = Person(username=user, budget=bal)
+    p.save()
+    return p
+
+
+def find_name(name):
+    n = Name.objects.get(username=name)
+    return n
+
+
+def find_person(name):
+    search_name = Name.objects.get(username=name)
+    p = Person.objects.get(username=search_name)
+    return p
