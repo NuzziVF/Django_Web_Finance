@@ -1,0 +1,111 @@
+html {
+  /* fallback for old browsers */
+  background: #dbc1ac;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to bottom,
+    rgba(219, 193, 172, 1),
+    rgba(117, 103, 93, 1)
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(
+    to bottom,
+    rgba(219, 193, 172, 1),
+    rgba(117, 103, 93, 1)
+  );
+  color: black;
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+  background-size: cover;
+}
+
+a:link {
+  text-decoration: none;
+  color: black;
+  transition-duration: 0.4s;
+}
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+  color: white;
+}
+a:active {
+  text-decoration: none;
+}
+
+.login_box {
+  background: #ece0d1;
+  width: 29rem;
+  padding: 4rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login_box h1 {
+  font-size: 2.6rem;
+}
+
+.login_box label {
+  font-size: 1.3rem;
+}
+
+.login_box .pass {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.register_box {
+  background: #ece0d1;
+  width: 29rem;
+  padding: 4rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.register_box h1 {
+  font-size: 2.6rem;
+}
+
+.register_box label {
+  font-size: 1.3rem;
+}
+
+.regi {
+  padding-bottom: 1rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.4rem;
+  padding: 0.8rem;
+  background: white;
+  border: solid 0.1rem black;
+}
+
+.navbar span {
+  border: solid 1px;
+  padding: 0.4rem;
+}
+
+.btn {
+  transition-duration: 0.4s;
+}
+
+.btn:hover {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+#Hello-msg {
+  border: none;
+}

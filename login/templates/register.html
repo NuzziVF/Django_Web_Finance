@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block login_content %}
+<div class="register_box">
+  <h1>Register</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="regi">
+      <label>{{ form.username.label }}:</label> {{ form.username }}
+    </div>
+    <div class="regi">
+      <label>{{ form.email.label }}:</label> {{ form.email }}
+    </div>
+    <div class="regi">
+      <label>{{ form.password1.label }}:</label> {{ form.password1 }}
+    </div>
+    <div class="regi">
+      <label>{{ form.password2.label }}:</label> {{ form.password2 }}
+    </div>
+    <input type="submit" name="createuser" value="Create" />
+  </form>
+
+  {{ form.errors }}
+
+  <p>
+    Already have an account?
+    <a href="{% url 'login' %}"><button>Login</button></a>
+  </p>
+</div>
+<script>
+  var form_field = document.getElementsByTagName("input");
+  form_field[1].placeholder = "Username...";
+  form_field[2].placeholder = "Email...";
+  form_field[3].placeholder = "Password...";
+  form_field[4].placeholder = "Re-Enter Password...";
+
+  for (var field in form_fields) {
+    form_fields[field].className += " form-control";
+  }
+</script>
+
+{% endblock login_content %}
