@@ -1,20 +1,21 @@
-html {
-  /* fallback for old browsers */
-  background: #dbc1ac;
 
-  /* Chrome 10-25, Safari 5.1-6 */
+  /* Chrome 10-25, Safari 5.1-6
   background: -webkit-linear-gradient(
     to bottom,
     rgba(219, 193, 172, 1),
     rgba(117, 103, 93, 1)
   );
 
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
     to bottom,
     rgba(219, 193, 172, 1),
     rgba(117, 103, 93, 1)
-  );
+  ); */
+
+html {
+  /* fallback for old browsers */
+  background: #dbc1ac;
+
   color: black;
   font-family: "Roboto", sans-serif;
   height: 100%;
@@ -93,7 +94,7 @@ a:active {
   border: solid 0.1rem black;
 }
 
-.navbar span {
+.navbar a {
   border: solid 1px;
   padding: 0.4rem;
 }
@@ -109,6 +110,7 @@ a:active {
 
 #Hello-msg {
   border: none;
+  padding: 0.4rem;
 }
 
 #content {
@@ -116,6 +118,7 @@ a:active {
   flex-wrap: wrap;
   padding: 10px;
   margin: 10px;
+  justify-content: center;
 }
 
 .content-bubble {
@@ -131,4 +134,18 @@ a:active {
 .content-bubble ul {
   list-style: none;
   padding-left: 0px;
+}
+
+
+@media (max-width: 880px) {
+  .navbar {
+  flex-direction: column;
+  width: 25.7rem;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid 2px black;
+  }
 }
