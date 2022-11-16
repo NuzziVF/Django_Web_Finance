@@ -32,4 +32,5 @@ urlpatterns = [
     # Careful with these two, they will delete or logout if even typed in the url
     path("logout/", logoutUser, name="logout"),
     path("delete/", deleteUser, name="delete"),
+    path("edit/", editPage, name="edit"),
 ]

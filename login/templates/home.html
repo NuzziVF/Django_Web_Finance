@@ -39,10 +39,16 @@
       {% if User != None %}
       <p>Username: {{ user.username.username }}</p>
       <p>Email: {{ user.email }}</p>
+
       {% else %}
       <p>Username: {{ request.user }}</p>
+
       <p>Email: {{ request.user.email }}</p>
+
       {% endif %}
+      <div class="edit-btn">
+        <a href="{% url 'edit' %}"><button>Edit Account</button></a>
+      </div>
       <div class="delete-btn">
         <a href="{% url 'delete' %}"><button>Delete Account</button></a>
       </div>

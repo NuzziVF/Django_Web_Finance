@@ -1,0 +1,15 @@
+{% extends 'homebase.html' %} {% block home_content %}
+<form action="" method="post">
+  {% csrf_token %}
+  <label for="edit-name"> Name: </label>
+  <input type="text" name="edit-name" />
+  <input type="submit" name="edit-name-btn" value="Edit Name" />
+</form>
+
+<form action="" method="post">
+  {% csrf_token %}
+  <label for="edit-email"> Email: </label>
+  <input type="email" name="edit-email" />
+  <input type="submit" name="edit-email-btn" value="Edit Email" />
+</form>
+{% endblock home_content%}

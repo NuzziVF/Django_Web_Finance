@@ -142,6 +142,44 @@ def deleteUser(request):
             return redirect("login")
 
 
+def editPage(request):
+    if request.method == "POST":
+        if "edit-name-btn" in request.POST:
+            name = request.POST.get("edit-name")
+            n = find_name(request.user)
+            u = User.objects.get(username=request.user)
+            n.username = name
+            u.username = name
+            n.save()
+            u.save()
+            print(request.user)
+            print("path1")
+            return redirect("home")
+
+        elif "edit-email-btn" in request.POST:
+            email = request.POST.get("edit-email")
+            try:
+                p = find_person(request.user)
+                u = User.objects.get(username=request.user)
+                p.email = email
+                u.email = email
+                p.save()
+                u.save()
+                print(request.user.email)
+                print("path2")
+                return redirect("home")
+            except Person.DoesNotExist:
+                u = User.objects.get(username=request.user)
+                u.email = email
+                u.save()
+                print(request.user.email)
+                print("path3")
+                return redirect("home")
+
+    else:
+        return render(request, "edit.html")
+
+
 @login_required(login_url="login")
 def reviewsPage(request):
     return redirect("home")
