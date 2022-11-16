@@ -23,5 +23,9 @@ urlpatterns = [
     path("login/", loginPage, name="login"),
     path("", homePage, name="home"),
     path("balance/", balancePage, name="bal"),
+    path("past_reviews/", reviewsPage, name="reviews"),
+    path("savings/", savingsPage, name="savings"),
+    path("stocks/", stonksPage, name="stonks"),
     path("logout/", logoutUser, name="logout"),
+    path("delete/", deleteUser, name="delete"),
 ]

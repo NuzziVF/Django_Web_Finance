@@ -3,7 +3,11 @@
   <div id="content">
     <div class="bal content-bubble">
       <h1>Current Balance:</h1>
-      <p>[Place Current Balance here]</p>
+      {% if user.budget.balance != None %}
+      <p>${{ user.budget.balance }}</p>
+      {% else %}
+      <b><p>Please go to the balance tab to set your budget</p></b>
+      {% endif %}
       <h2>Previous Transactions:</h2>
       <ol>
         <li>List of transactions</li>
@@ -16,7 +20,8 @@
     <div class="earnings content-bubble">
       <h1>Current Earnings:</h1>
       <p>
-        [Place Current Earnings here and make them either green for gain or red for loss] {{ name }}
+        [Place Current Earnings here and make them either green for gain or red
+        for loss] {{ user.username.username }}
       </p>
     </div>
     <div class="subs content-bubble">
@@ -31,6 +36,16 @@
     <div class="user-info content-bubble">
       <h1>User Info:</h1>
       <p>[User info such as when registered, email to send info, Username]</p>
+      {% if User != None %}
+      <p>Username: {{ user.username.username }}</p>
+      <p>Email: {{ user.email }}</p>
+      {% else %}
+      <p>Username: {{ request.user }}</p>
+      <p>Email: {{ request.user.email }}</p>
+      {% endif %}
+      <div class="delete-btn">
+        <a href="{% url 'delete' %}"><button>Delete Account</button></a>
+      </div>
     </div>
     <div class="stock content-bubble">
       <h1>Stocks:</h1>
@@ -45,7 +60,7 @@
         <li>Names of Stocks</li>
         <li>Names of Stocks</li>
         <li>Names of Stocks</li>
-      </ol>
+      </ul>
     </div>
   </div>
 </div>

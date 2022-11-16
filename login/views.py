@@ -54,20 +54,85 @@ def logoutUser(request):
 
 @login_required(login_url="login")
 def homePage(request):
+    try:
+        user = find_person(request.user)
+        context = {"user": user}
+        return render(request, "home.html", context)
+    except Person.DoesNotExist:
+        user = find_name(request.user)
 
-    context = {"name": request.user}
-    return render(request, "home.html", context)
+        context = {"user": None}
+        print(user)
+        return render(request, "home.html", context)
 
 
 @login_required(login_url="login")
 def balancePage(request):
-    if request.method == "POST":
-        balance = request.POST.get("bal")
-        bal = create_bal(balance)
-        context = {"bal": bal}
-        person = create_person(find_name(request.user), bal)
+    try:
+        if request.method == "POST":
+            balance = request.POST.get("bal")
+            bal = create_bal(balance)
+            print("path1")
+            person = create_person(find_name(request.user), bal, request.user.email)
+            context = {"bal": bal, "user": person}
+            return render(request, "balance.html", context)
+        else:
+            print("path2")
+            user = find_person(request.user)
+            context = {"user": user}
+            return render(request, "balance.html", context)
+    except Person.DoesNotExist:
+        context = {"user": None}
+        print("path4")
         return render(request, "balance.html", context)
-    return render(request, "balance.html")
+
+
+@login_required(login_url="login")
+def deleteUser(request):
+    if request.method == "POST":
+        username = request.user
+        print(request.POST.get("username"))
+        u = User.objects.get(username=username)
+        u.delete()
+        messages.success(request, "The user is deleted")
+        return redirect("login")
+    else:
+        try:
+            print(request.user)
+            name = Name.objects.get(username=request.user)
+            person = Person.objects.get(username=name)
+            bank = Person.objects.get(username=name).budget
+            bal = bank.balance
+            bank = Banking.objects.get(balance=bal)
+            u = User.objects.get(username=request.user)
+            bank.delete()
+            person.delete()
+            name.delete()
+            u.delete()
+            messages.success(request, "The user has been deleted")
+            return redirect("login")
+        except Person.DoesNotExist:
+            name = Name.objects.get(username=request.user)
+            u = User.objects.get(username=request.user)
+            name.delete()
+            u.delete()
+            messages.success(request, "The user has been deleted")
+            return redirect("login")
+
+
+@login_required(login_url="login")
+def reviewsPage(request):
+    return redirect("home")
+
+
+@login_required(login_url="login")
+def savingsPage(request):
+    return redirect("home")
+
+
+@login_required(login_url="login")
+def stonksPage(request):
+    return redirect("home")
 
 
 def create_name(name):
@@ -82,8 +147,8 @@ def create_bal(bal):
     return b
 
 
-def create_person(user, bal):
-    p = Person(username=user, budget=bal)
+def create_person(user, bal, mail):
+    p = Person(username=user, budget=bal, email=mail)
     p.save()
     return p
 

@@ -17,19 +17,22 @@
   <body>
     <div class="navbar">
       <span id="Hello-msg">Hello, {{ request.user }} </span>
+      <a href="{% url 'home' %}" class="btn"
+        ><span class="Home-btn">Home</span></a
+      >
       <a href="{% url 'bal' %}" class="btn"
         ><span class="balance">Balance</span></a
       >
-      <a href="{% url 'home' %}" class="btn"
+      <a href="{% url 'reviews' %}" class="btn"
         ><span class="pastreviews">Past Reviews</span></a
       >
-      <a href="{% url 'home' %}" class="btn"
+      <a href="{% url 'savings' %}" class="btn"
         ><span class="savings">Savings</span></a
       >
-      <a href="{% url 'home' %}" class="btn"
+      <a href="{% url 'stonks' %}" class="btn"
         ><span class="stonks">Stocks</span></a
       >
-      <a href="{% url 'home' %}" class="btn"
+      <a href="{% url 'logout' %}" class="btn"
         ><span class="logout">Logout</span></a
       >
     </div>
