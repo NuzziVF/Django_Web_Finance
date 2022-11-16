@@ -8,6 +8,12 @@ from .models import *
 
 # Create your views here.
 
+### All Page Views end in -Page with no spaces and first word lowercase, all Functions have underscore(_) instead of spaces and are all lowercase. Please keep this consistent.
+
+## The if redirects if you are logged in, don't want the user to see the login again
+
+# The variable u is used to create the name ahead of time when the account is made. This helps in displaying the name even when the person class is yet to be created.
+
 
 def registerPage(request):
     if request.user.is_authenticated:
@@ -46,10 +52,16 @@ def loginPage(request):
         return render(request, "login.html", context)
 
 
+### @login_required must be in front of every tab besides login and register
+
+
 @login_required(login_url="login")
 def logoutUser(request):
     logout(request)
     return redirect("login")
+
+
+### Since I am using the Model Person to keep track of all user information, and it uses ForeignKeys which requires everything to already be there, I have two renders. One will work with the Person Model, and the other will come in if the Model doesn't exist yet
 
 
 @login_required(login_url="login")
@@ -66,6 +78,11 @@ def homePage(request):
         return render(request, "home.html", context)
 
 
+### THIS IS A MESS, Having to order all of this in the right way is very complicated, You can't create a Person Model without all the factors already set and it requires you to fetch the others models [Name, Banking]. I have troubleshooting print statements in each path.
+
+## The first time this page is run, it will ask for a balance/budget(path4), then it will return and user request.POST and will not display the select a budget option again(path1), finally, when you come back to the page any other times, it will run though path2 and display your current budget
+
+
 @login_required(login_url="login")
 def balancePage(request):
     try:
@@ -77,14 +94,19 @@ def balancePage(request):
             context = {"bal": bal, "user": person}
             return render(request, "balance.html", context)
         else:
-            print("path2")
             user = find_person(request.user)
+            print("path2")
             context = {"user": user}
             return render(request, "balance.html", context)
     except Person.DoesNotExist:
         context = {"user": None}
         print("path4")
         return render(request, "balance.html", context)
+
+
+### WHERE DO I EVEN START HERE, because of how many Models I have I have to order this in a particular way so that nothing is left behind when the user is deleted, the only problem is the fact that some Models can only really be identified using ones of its links in a ForeignKey. If you delete the others path first there's a change that the on_delete=models.CASCADE might not delete the remanent of some Models.
+
+## For the most part we should't need to mess with this from know on, for the user, it should seem seamless as it deletes a user but it have to go though 3 different paths depending on when they wanted to delete their account.
 
 
 @login_required(login_url="login")
@@ -133,6 +155,9 @@ def savingsPage(request):
 @login_required(login_url="login")
 def stonksPage(request):
     return redirect("home")
+
+
+### Anything past here are just functions for keeping track of Models and create Models.
 
 
 def create_name(name):

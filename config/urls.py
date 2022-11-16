@@ -19,13 +19,17 @@ from login.views import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # register and login are the only ones that don't require you to log in first
     path("register/", registerPage, name="register"),
     path("login/", loginPage, name="login"),
+    # All of these will redirect back to login if used before logging in.
     path("", homePage, name="home"),
     path("balance/", balancePage, name="bal"),
+    # These next few are not finished yet so they redirect to home
     path("past_reviews/", reviewsPage, name="reviews"),
     path("savings/", savingsPage, name="savings"),
     path("stocks/", stonksPage, name="stonks"),
+    # Careful with these two, they will delete or logout if even typed in the url
     path("logout/", logoutUser, name="logout"),
     path("delete/", deleteUser, name="delete"),
 ]
