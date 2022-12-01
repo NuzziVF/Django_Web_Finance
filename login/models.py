@@ -23,3 +23,7 @@ class Banking_Changes(models.Model):
     cost = models.IntegerField()
     date_added = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
     user = models.ForeignKey("login.Person", on_delete=models.CASCADE)
+
+
+class Stock(models.Model):
+    pass

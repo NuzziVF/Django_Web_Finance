@@ -6,6 +6,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import *
 
+
+from IPython.display import display
+import requests
+import pandas as pd
+from alpha_vantage.timeseries import TimeSeries
+
+
 # Create your views here.
 
 ### All Page Views end in -Page with no spaces and first word lowercase, all Functions have underscore(_) instead of spaces and are all lowercase. Please keep this consistent.
@@ -192,7 +199,18 @@ def savingsPage(request):
 
 @login_required(login_url="login")
 def stonksPage(request):
-    return redirect("home")
+
+    api_key = "F71WF3729MHFB57L"
+
+    ts = TimeSeries(
+        key=api_key,
+        output_format="pandas",
+    )
+
+    data = ts.get_daily_adjusted("MSFT")
+    context = {"data": data[0]}
+
+    return render(request, "stonks.html", context)
 
 
 ### Anything past here are just functions for keeping track of Models and create Models.
