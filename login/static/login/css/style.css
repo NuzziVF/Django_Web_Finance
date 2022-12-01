@@ -12,140 +12,144 @@
     rgba(117, 103, 93, 1)
   ); */
 
-html {
-  /* fallback for old browsers */
-  background: #dbc1ac;
-
-  color: black;
-  font-family: "Roboto", sans-serif;
-  height: 100%;
-  max-height: 100%;
-  background-size: cover;
-}
-
-a:link {
-  text-decoration: none;
-  color: black;
-  transition-duration: 0.4s;
-}
-a:visited {
-  text-decoration: none;
-  color: black;
-}
-a:hover {
-  text-decoration: none;
-  color: white;
-}
-a:active {
-  text-decoration: none;
-}
-
-.login_box {
-  background: #ece0d1;
-  width: 29rem;
-  padding: 4rem;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.login_box h1 {
-  font-size: 2.6rem;
-}
-
-.login_box label {
-  font-size: 1.3rem;
-}
-
-.login_box .pass {
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-.register_box {
-  background: #ece0d1;
-  width: 29rem;
-  padding: 4rem;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.register_box h1 {
-  font-size: 2.6rem;
-}
-
-.register_box label {
-  font-size: 1.3rem;
-}
-
-.regi {
-  padding-bottom: 1rem;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 1.4rem;
-  padding: 0.8rem;
-  background: white;
-  border: solid 0.1rem black;
-}
-
-.navbar a {
-  border: solid 1px;
-  padding: 0.4rem;
-}
-
-.btn {
-  transition-duration: 0.4s;
-}
-
-.btn:hover {
-  background-color: #4caf50; /* Green */
-  color: white;
-}
-
-#Hello-msg {
-  border: none;
-  padding: 0.4rem;
-}
-
-#content {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-  margin: 10px;
-  justify-content: center;
-}
-
-.content-bubble {
-  margin: 8px;
-  width: 25.7rem;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 15px;
-  border: solid 2px black;
-  background: white;
-}
-
-.content-bubble ul {
-  list-style: none;
-  padding-left: 0px;
-}
-
-
-@media (max-width: 880px) {
-  .navbar {
-  flex-direction: column;
-  width: 25.7rem;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  border: solid 2px black;
+  html {
+    /* fallback for old browsers */
+    background: #dbc1ac;
+  
+    color: black;
+    font-family: "Roboto", sans-serif;
+    height: 100%;
+    max-height: 100%;
+    background-size: cover;
   }
-}
+  body{
+    padding: 0;
+    margin: 0;
+  }
+  
+  a:link {
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.4s;
+  }
+  a:visited {
+    text-decoration: none;
+    color: black;
+  }
+  a:hover {
+    text-decoration: none;
+    color: white;
+  }
+  a:active {
+    text-decoration: none;
+  }
+  
+  .login_box {
+    background: #ece0d1;
+    width: 29rem;
+    padding: 4rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .login_box h1 {
+    font-size: 2.6rem;
+  }
+  
+  .login_box label {
+    font-size: 1.3rem;
+  }
+  
+  .login_box .pass {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .register_box {
+    background: #ece0d1;
+    width: 29rem;
+    padding: 4rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .register_box h1 {
+    font-size: 2.6rem;
+  }
+  
+  .register_box label {
+    font-size: 1.3rem;
+  }
+  
+  .regi {
+    padding-bottom: 1rem;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.4rem;
+    padding: 0.8rem;
+    background: linear-gradient(white, lightgrey);
+  
+    border: solid 0.1rem black;
+  }
+  
+  .navbar a {
+    border: solid 1px;
+    padding: 0.4rem;
+  }
+  
+  .btn {
+    transition-duration: 0.4s;
+  }
+  
+  .btn:hover {
+    background: linear-gradient(#4caf50, grey); /* Green */
+    color: white;
+  }
+  
+  #Hello-msg {
+    border: none;
+    padding: 0.4rem;
+  }
+  
+  #content {
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: center; */
+  }
+  
+  .content-bubble {
+    /* width: 33%; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 1.5em;
+    padding: 1em;
+    border-bottom: solid 2px black;
+    background: linear-gradient(white, lightgrey);
+  }
+  
+  .content-bubble ul {
+    list-style: none;
+    padding-left: 0px;
+  }
+  
+  
+  @media (max-width: 880px) {
+    .navbar {
+    flex-direction: column;
+    width: 25.7rem;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px black;
+    }
+  }
