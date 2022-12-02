@@ -153,3 +153,10 @@
     border: solid 2px black;
     }
   }
+
+  
+td {
+  border-bottom: 1px solid #ddd;
+  height: 28px;
+  width: 8rem;
+}

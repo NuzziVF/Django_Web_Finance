@@ -30,8 +30,37 @@ class Command(BaseCommand):
 
         data = ts.get_daily_adjusted("MSFT")
         data = data[0].head(10)
+        print("fail1")
 
         data.reset_index().to_sql(
+            Stock._meta.db_table,
+            if_exists="replace",
+            con=engine,
+            index=False,
+            # index_label="Id",
+            # dtype={"IdColumn": String(length=255)},
+        )
+        print(data)
+
+        print("fail2")
+        print("fail3")
+        conv_dict = {
+            "date": "date",
+            "1. open": "open",
+            "2. high": "high",
+            "3. low": "low",
+            "4. close": "close",
+            "5. adjusted close": "adjusted_close",
+            "6. volume": "volume",
+            "7. dividend amount": "dividend_amount",
+            "8. split coefficient": "split_coefficient",
+        }
+
+        new_df = data.rename(columns=conv_dict)
+        print("fail4")
+        print(new_df)
+
+        new_df.reset_index().to_sql(
             Stock._meta.db_table,
             if_exists="replace",
             con=engine,

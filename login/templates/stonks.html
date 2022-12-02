@@ -1,7 +1,23 @@
 {% extends 'homebase.html' %} {% block home_content %}
 <br />
 
-{{ data }}
+<table>
+  <tbody>
+    {% for each in data %}
+    <tr>
+      <td>{{each.date}}</td>
+      <td>{{each.open}}</td>
+      <td>{{each.high}}</td>
+      <td>{{each.low}}</td>
+      <td>{{each.close}}</td>
+      <td>{{each.adjusted_close}}</td>
+      <td>{{each.volume}}</td>
+      <td>{{each.dividend_amount}}</td>
+      <td>{{each.split_coefficient}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 <br />
 
