@@ -104,17 +104,28 @@ def balancePage(request):
             bal = create_bal(balance)
             print("path1")
             person = create_person(find_name(request.user), bal, request.user.email)
+
             context = {"bal": bal, "user": person}
             return render(request, "balance.html", context)
         else:
             user = find_person(request.user)
             print("path2")
+            print(user.budget.balance)
             context = {"user": user}
             return render(request, "balance.html", context)
     except Person.DoesNotExist:
         context = {"user": None}
         print("path4")
         return render(request, "balance.html", context)
+
+
+def trans(request):
+    if request.method == "POST":
+        a = request.POST.get("name")
+        b = request.POST.get("money")
+        c = request.user
+        transaction(a, b, c)
+        return redirect("bal")
 
 
 ### WHERE DO I EVEN START HERE, because of how many Models I have I have to order this in a particular way so that nothing is left behind when the user is deleted, the only problem is the fact that some Models can only really be identified using ones of its links in a ForeignKey. If you delete the others path first there's a change that the on_delete=models.CASCADE might not delete the remanent of some Models.
@@ -180,6 +191,7 @@ def editPage(request):
                 u.save()
                 print(request.user.email)
                 print("path2")
+
                 return redirect("home")
             except Person.DoesNotExist:
                 u = User.objects.get(username=request.user)
@@ -297,3 +309,14 @@ def import_data():
         index_label="Id",
         dtype={"IdColumn": String(length=255)},
     )
+
+
+def transaction(a, b, c):
+    q = find_person(c)
+    trans = Banking_Changes(name=a, cost=b, user=q)
+    trans.save()
+    print(trans)
+    print(q.budget.balance)
+    q.budget.balance -= int(trans.cost)
+    q.budget.save()
+    print(q.budget.balance)

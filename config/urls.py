@@ -33,4 +33,5 @@ urlpatterns = [
     path("logout/", logoutUser, name="logout"),
     path("delete/", deleteUser, name="delete"),
     path("edit/", editPage, name="edit"),
+    path("trans/", trans, name="trans"),
 ]

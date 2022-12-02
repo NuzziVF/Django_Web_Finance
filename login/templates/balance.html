@@ -6,16 +6,28 @@
     <h1>Balance:</h1>
     <p>${{ user.budget.balance }}</p>
   </div>
-{% else %}
-  <div class="content-bubble">
-    <h2>You have not selected a balance:</h2>
-    <h1>Balance:</h1>
-    <form action="" method="post">
+  <div>
+    <form action="{% url 'trans' %}" method="post">
       {% csrf_token %}
-      <label for="bal">Please Enter You're Current Balance:</label>
-      <input type="text" name="bal" id="balance" placeholder="Balance..." />
+      <label> Name of Transaction: </label>
+      <input type="text" name="name" />
+      <label> Cost: </label>
+      <input type="integer" name="money" />
+      <button>submit</button>
     </form>
+    <div>
+      {% else %}
+      <div class="content-bubble">
+        <h2>You have not selected a balance:</h2>
+        <h1>Balance:</h1>
+        <form action="" method="post">
+          {% csrf_token %}
+          <label for="bal">Please Enter You're Current Balance:</label>
+          <input type="text" name="bal" id="balance" placeholder="Balance..." />
+        </form>
+      </div>
+    </div>
+
+    {% endif %} {% endblock home_content %}
   </div>
 </div>
-
-{% endif %} {% endblock home_content %}

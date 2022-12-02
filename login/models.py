@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from datetime import date, datetime
 
 # Create your models here.
 
@@ -20,13 +20,14 @@ class Banking(models.Model):
 
 
 class Banking_Changes(models.Model):
+    name = models.CharField(null=True, max_length=50)
     cost = models.IntegerField()
-    date_added = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
+    date_added = models.DateTimeField(default=datetime.now, blank=True, null=True)
     user = models.ForeignKey("login.Person", on_delete=models.CASCADE)
 
 
 class Stock(models.Model):
-    date = models.DateField(auto_now=False, auto_now_add=False)
+    date = models.DateField(auto_now=False, auto_now_add=False, null=True)
     open = models.FloatField()
     high = models.FloatField()
     low = models.FloatField()

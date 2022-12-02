@@ -17,3 +17,8 @@ class Bank(forms.Form):
 class Financing(forms.Form):
     name = forms.CharField(max_length=50, required=False)
     cost = forms.IntegerField(required=True)
+
+
+class Transactions(forms.Form):
+    name = forms.CharField(max_length=50, required=False)
+    money = forms.IntegerField()
