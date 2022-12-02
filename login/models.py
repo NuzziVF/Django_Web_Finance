@@ -26,4 +26,12 @@ class Banking_Changes(models.Model):
 
 
 class Stock(models.Model):
-    pass
+    date = models.DateField(auto_now=False, auto_now_add=False)
+    open = models.FloatField()
+    high = models.FloatField()
+    low = models.FloatField()
+    close = models.FloatField()
+    adjusted_close = models.FloatField()
+    volume = models.FloatField()
+    dividend_amount = models.FloatField()
+    split_coefficient = models.FloatField()

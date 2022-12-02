@@ -5,12 +5,18 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import *
-
-
 from IPython.display import display
 import requests
 import pandas as pd
 from alpha_vantage.timeseries import TimeSeries
+from django.core import management
+from django.core.management import call_command
+import pandas as pd
+from django.core.management.base import BaseCommand
+from login.models import *
+from IPython.display import display
+from alpha_vantage.timeseries import TimeSeries
+from sqlalchemy import create_engine, String
 
 
 # Create your views here.
@@ -200,15 +206,9 @@ def savingsPage(request):
 @login_required(login_url="login")
 def stonksPage(request):
 
-    api_key = "F71WF3729MHFB57L"
-
-    ts = TimeSeries(
-        key=api_key,
-        output_format="pandas",
-    )
-
-    data = ts.get_daily_adjusted("MSFT")
-    context = {"data": data[0]}
+    import_data()
+    data = find_stock_all()
+    context = {"data": data}
 
     return render(request, "stonks.html", context)
 
@@ -243,3 +243,31 @@ def find_person(name):
     search_name = Name.objects.get(username=name)
     p = Person.objects.get(username=search_name)
     return p
+
+
+def find_stock_all():
+    holder = Stock.objects.all()
+    return holder
+
+
+def import_data():
+    engine = create_engine("sqlite:///db.sqlite3")
+
+    api_key = "F71WF3729MHFB57L"
+
+    ts = TimeSeries(
+        key=api_key,
+        output_format="pandas",
+    )
+
+    data = ts.get_daily_adjusted("MSFT")
+    data = data[0].head(10)
+
+    data.reset_index().to_sql(
+        Stock._meta.db_table,
+        if_exists="replace",
+        con=engine,
+        index=True,
+        index_label="Id",
+        dtype={"IdColumn": String(length=255)},
+    )

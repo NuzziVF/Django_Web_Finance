@@ -1,6 +1,6 @@
+import pandas as pd
 from IPython.display import display
 import requests
-import pandas as pd
 from alpha_vantage.timeseries import TimeSeries
 
 api_key = "F71WF3729MHFB57L"
