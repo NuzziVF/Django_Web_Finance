@@ -10,47 +10,28 @@
       {% endif %}
       <h2>Previous Transactions:</h2>
       <ol>
-        <li>List of transactions</li>
-        <li>List of transactions</li>
-        <li>List of transactions</li>
-        <li>List of transactions</li>
-        <li>List of transactions</li>
+        <li>N/A</li>
       </ol>
     </div>
     <div class="earnings content-bubble">
       <h1>Current Earnings:</h1>
-      <p>
-        [Place Current Earnings here and make them either green for gain or red
-        for loss] {{ user.username.username }}
-      </p>
+      <p>N/A :{{ user.username.username }}</p>
     </div>
     <div class="subs content-bubble">
       <h1>On Going Subscriptions:</h1>
       <ul>
-        <li>List of Subscriptions</li>
-        <li>List of Subscriptions</li>
-        <li>List of Subscriptions</li>
-        <li>List of Subscriptions</li>
+        <li>You're not subscrbed to anything</li>
       </ul>
     </div>
     <div class="stock content-bubble">
       <h1>Stocks:</h1>
-      <p>
-        [Place stock info here such as how much is invested, gained, and loss
-      </p>
+      <p>You have no invested yet</p>
       <ul>
-        <li>Names of Stocks</li>
-        <li>Names of Stocks</li>
-        <li>Names of Stocks</li>
-        <li>Names of Stocks</li>
-        <li>Names of Stocks</li>
-        <li>Names of Stocks</li>
-        <li>Names of Stocks</li>
+        <li>N/A</li>
       </ul>
     </div>
     <div class="user-info content-bubble">
       <h1>User Info:</h1>
-      <p>[User info such as when registered, email to send info, Username]</p>
       {% if User != None %}
       <p>Username: {{ user.username.username }}</p>
       <p>Email: {{ user.email }}</p>

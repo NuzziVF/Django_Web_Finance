@@ -156,7 +156,16 @@
 
   
 td {
-  border-bottom: 1px solid #ddd;
+  padding: .3em;
   height: 28px;
   width: 8rem;
+  text-align: left;
+  border: black 1px solid;
+  background: linear-gradient(white, lightgrey);
+}
+th {
+  text-align: left;
+}
+table{
+  margin: 2em;
 }
