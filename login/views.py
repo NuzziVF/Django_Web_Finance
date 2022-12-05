@@ -213,6 +213,26 @@ def editPage(request):
 
 
 @login_required(login_url="login")
+def reviewsPage(request):
+    try:
+        name = request.user
+        user = find_person(name)
+        if len(find_transaction(name)) == 0:
+            print("No transactions found")
+            context = {"user": user}
+        else:
+            transactions = find_transaction(name)
+            print(f"{len(transactions)} transactions found")
+            transactions = transactions.reverse()
+            context = {"user": user, "transactions": transactions}
+        return render(request, "reviews.html", context)
+    except Person.DoesNotExist:
+        user = find_name(request.user)
+        context = {"user": None}
+        return render(request, "reviews.html", context)
+
+
+@login_required(login_url="login")
 def savingsPage(request):
     return redirect("home")
 
@@ -320,30 +340,11 @@ def import_data():
 
 
 def transaction(a, b, c):
-    q = find_person(c)
-    trans = Banking_Changes(name=a, cost=b, user=q)
+    PERSON_FOUND = find_person(c)
+    trans = Banking_Changes(name=a, cost=b, user=PERSON_FOUND)
     trans.save()
     print(trans)
     print(q.budget.balance)
-    q.budget.balance -= int(trans.cost)
-    q.budget.save()
-    print(q.budget.balance)
-
-
-@login_required(login_url="login")
-def reviewsPage(request):
-    try:
-        name = request.user
-        user = find_person(name)
-        if len(find_transaction(name)) == 0:
-            print("No transactions found")
-            context = {"user": user}
-        else:
-            transactions = find_transaction(name)
-            print(f"{len(transactions)} transactions found")
-            context = {"user": user, "transactions": transactions}
-        return render(request, "reviews.html", context)
-    except Person.DoesNotExist:
-        user = find_name(request.user)
-        context = {"user": None}
-        return render(request, "reviews.html", context)
+    PERSON_FOUND.budget.balance -= int(trans.cost)
+    PERSON_FOUND.budget.save()
+    print(PERSON_FOUND.budget.balance)
