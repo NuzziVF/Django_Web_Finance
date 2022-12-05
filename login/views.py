@@ -17,6 +17,7 @@ from login.models import *
 from IPython.display import display
 from alpha_vantage.timeseries import TimeSeries
 from sqlalchemy import create_engine, String
+from typing import List
 
 
 # Create your views here.
@@ -80,14 +81,19 @@ def logoutUser(request):
 @login_required(login_url="login")
 def homePage(request):
     try:
-        user = find_person(request.user)
-        context = {"user": user}
+        name = request.user
+        user = find_person(name)
+        if len(find_transaction(name)) == 0:
+            print("No transactions found")
+            context = {"user": user}
+        else:
+            transactions = find_transaction(name)
+            print(f"{len(transactions)} transactions found")
+            context = {"user": user, "transactions": transactions}
         return render(request, "home.html", context)
     except Person.DoesNotExist:
         user = find_name(request.user)
-
         context = {"user": None}
-        print(user)
         return render(request, "home.html", context)
 
 
@@ -256,6 +262,12 @@ def find_person(name):
     search_name = Name.objects.get(username=name)
     p = Person.objects.get(username=search_name)
     return p
+
+
+def find_transaction(input_name) -> List:
+    p = find_person(input_name)
+    t = Banking_Changes.objects.filter(user=p)
+    return t
 
 
 def find_stock_all():

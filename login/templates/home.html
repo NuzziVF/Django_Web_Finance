@@ -10,7 +10,15 @@
       {% endif %}
       <h2>Previous Transactions:</h2>
       <ol>
-        <li>N/A</li>
+        {% for each in transactions %}
+        <li class="this-list">
+          <b>Name</b>: {{each.name}}
+          <ul class="sub-list">
+            <li><b>Cost</b>: {{each.cost}}</li>
+            <li><b>Date</b>: {{each.date_added}}</li>
+          </ul>
+        </li>
+        {% endfor %}
       </ol>
     </div>
     <div class="earnings content-bubble">

@@ -10,9 +10,9 @@
     <form action="{% url 'trans' %}" method="post">
       {% csrf_token %}
       <label> Name of Transaction: </label>
-      <input type="text" name="name" />
+      <input type="text" name="name" required />
       <label> Cost: </label>
-      <input type="integer" name="money" />
+      <input type="integer" name="money" required />
       <button>submit</button>
     </form>
     <div>

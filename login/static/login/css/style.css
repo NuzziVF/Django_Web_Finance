@@ -118,12 +118,6 @@
     padding: 0.4rem;
   }
   
-  #content {
-    /* display: flex;
-    flex-wrap: wrap;
-    justify-content: center; */
-  }
-  
   .content-bubble {
     /* width: 33%; */
     display: flex;
@@ -134,11 +128,17 @@
     border-bottom: solid 2px black;
     background: linear-gradient(white, lightgrey);
   }
-  
+
   .content-bubble ul {
     list-style: none;
     padding-left: 0px;
   }
+
+
+  .this-list {
+    padding-bottom: 10px; 
+  }
+
   
   
   @media (max-width: 880px) {
