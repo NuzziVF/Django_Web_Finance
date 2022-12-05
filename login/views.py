@@ -80,7 +80,6 @@ def logoutUser(request):
 
 @login_required(login_url="login")
 def homePage(request):
-    trans = []
     try:
         name = request.user
         user = find_person(name)
@@ -88,19 +87,10 @@ def homePage(request):
             print("No transactions found")
             context = {"user": user}
         else:
-            new_trans = []
-            transact = []
-            count = 0
             transactions = find_transaction(name)
             print(f"{len(transactions)} transactions found")
-            transactions = reversed(transactions)
-            for x in transactions:
-                transact.append(x)
-            for x in range(0, 3):
-                new_trans.append(transact[count])
-                count += 1
-
-            context = {"user": user, "transactions": new_trans}
+            transactions = transactions.reverse()
+            context = {"user": user, "transactions": transactions}
         return render(request, "home.html", context)
     except Person.DoesNotExist:
         user = find_name(request.user)
