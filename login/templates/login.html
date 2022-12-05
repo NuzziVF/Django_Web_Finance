@@ -1,6 +1,9 @@
-{% extends 'base.html' %} {% block login_content %}
+{% extends 'base.html' %} {% block login_content %} {% load static %} <img
+src="{% static "IMG_1169.PNG"%}">
 <div class="login_box">
-  <h1>Please Login in Here!!</h1>
+  <h1>Penguin Financing</h1>
+  <hr />
+  <h2>Please Login in Here!!</h2>
   <form action="" method="post">
     {% csrf_token %}
     <div class="user">
