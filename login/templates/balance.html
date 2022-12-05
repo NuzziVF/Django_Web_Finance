@@ -6,7 +6,8 @@
     <h1>Balance:</h1>
     <p>${{ user.budget.balance }}</p>
   </div>
-  <div>
+  <div class="content-bubble">
+    <h1>Transaction:</h1>
     <form action="{% url 'trans' %}" method="post">
       {% csrf_token %}
       <label> Name of Transaction: </label>

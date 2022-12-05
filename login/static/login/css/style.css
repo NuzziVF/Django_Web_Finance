@@ -14,8 +14,8 @@
 
   html {
     /* fallback for old browsers */
-    background: #dbc1ac;
-  
+    /* background: #dbc1ac; */
+    background: #0D7377;
     color: black;
     font-family: "Roboto", sans-serif;
     height: 100%;
@@ -123,8 +123,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    margin: 1.5em;
-    padding: 1em;
+    margin: 2em;
+    padding: 1.5em;
     border-bottom: solid 2px black;
     background: linear-gradient(white, lightgrey);
   }
@@ -168,4 +168,22 @@ th {
 }
 table{
   margin: 2em;
+}
+.trans_name{
+  border-bottom: 1px black solid;
+  width: max-content;
+  font-weight: bolder;
+  display: inline
+}
+.trans_blocks{
+  width: max-content;
+  padding: .2em;
+}
+th{
+  color: white;
+
+}
+.stock_header{
+  color: white;
+  margin: 1em;
 }

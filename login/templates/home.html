@@ -12,12 +12,19 @@
       <ol>
         {% for each in transactions %}
         <li class="this-list">
-          <b>Name</b>: {{each.name}}
+          <div class = "trans_blocks">
+          <b>Name</b>: <p class = "trans_name">{{each.name}}</p>
+          </div>
           <ul class="sub-list">
-            <li><b>Cost</b>: {{each.cost}}</li>
-            <li><b>Date</b>: {{each.date_added}}</li>
+            <div class = "trans_blocks">
+              <li><b>Cost</b>: {{each.cost}}</li>
+            </div>
+            <div class = "trans_blocks"
+              <li><b>Date</b>: {{each.date_added}}</li>
+          </div>
           </ul>
         </li>
+        <hr></hr>
         {% endfor %}
       </ol>
     </div>
@@ -33,7 +40,7 @@
     </div>
     <div class="stock content-bubble">
       <h1>Stocks:</h1>
-      <p>You have no invested yet</p>
+      <p>You have not invested yet</p>
       <ul>
         <li>N/A</li>
       </ul>
