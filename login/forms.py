@@ -20,5 +20,6 @@ class Financing(forms.Form):
 
 
 class Transactions(forms.Form):
-    name = forms.CharField(max_length=50, required=False)
-    money = forms.IntegerField()
+    name = forms.CharField(max_length=50, required=True)
+    money = forms.IntegerField(required=True)
+    gain_loss = forms.BooleanField(required=False)

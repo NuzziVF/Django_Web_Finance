@@ -21,6 +21,7 @@ class Banking(models.Model):
 
 class Banking_Changes(models.Model):
     name = models.CharField(null=True, max_length=50)
+    gain_loss = models.BooleanField(null=True)
     cost = models.IntegerField()
     date_added = models.DateTimeField(default=datetime.now, blank=True, null=True)
     user = models.ForeignKey("login.Person", on_delete=models.CASCADE)

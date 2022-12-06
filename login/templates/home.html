@@ -9,6 +9,7 @@
       <b><p>Please go to the balance tab to set your budget</p></b>
       {% endif %}
       <h2>Previous Transactions:</h2>
+      {% if transactions != None %}
       <ol>
         {% for each in transactions %}
         <li class="this-list">
@@ -17,9 +18,13 @@
           </div>
           <ul class="sub-list">
             <div class = "trans_blocks">
-              <li><b>Cost</b>: {{each.cost}}</li>
+              {% if each.gain_loss == True %}
+              <li style="color: green;"><b>Cost</b>: +{{each.cost}}</li>
+              {% else %}
+              <li style="color: red;"><b>Cost</b>: -{{each.cost}}</li>
+              {% endif %}
             </div>
-            <div class = "trans_blocks"
+            <div class = "trans_blocks">
               <li><b>Date</b>: {{each.date_added}}</li>
           </div>
           </ul>
@@ -27,10 +32,24 @@
         <hr></hr>
         {% endfor %}
       </ol>
+      {% elif user.budget.balance != None %}
+      <p>No Transactions Processed. Please Go to the balance page and notate your transactions.</p>
+      {% else %}
+      <b><p>Please go to the balance tab to set your budget</p></b>
+      {% endif %}
+
     </div>
     <div class="earnings content-bubble">
       <h1>Current Earnings:</h1>
-      <p>N/A :{{ user.username.username }}</p>
+      {% if Current_earnings != None %}
+      {% if Current_earnings > 0 %}
+      <p style="color: green;font-size: 1.7rem;">+{{ Current_earnings }}</p>
+      {% else %}
+      <p style="color: red;font-size: 1.7rem;">{{ Current_earnings }}</p>
+      {% endif %}
+      {% else %}
+      <b><p>Please go to the balance tab to set your budget</p></b>
+      {% endif %}
     </div>
     <div class="subs content-bubble">
       <h1>On Going Subscriptions:</h1>

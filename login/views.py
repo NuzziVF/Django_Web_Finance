@@ -85,12 +85,20 @@ def homePage(request):
         user = find_person(name)
         if len(find_transaction(name)) == 0:
             print("No transactions found")
-            context = {"user": user}
+            context = {"user": user, "transactions": None, "Current_earnings": None}
         else:
             new_trans = find_transaction(name)
             print(f"{len(new_trans)} transactions found")
-            new_trans = list_reverse(new_trans)
-            context = {"user": user, "transactions": new_trans}
+            if len(new_trans) < 3:
+                pass
+            else:
+                new_trans = list_reverse(new_trans)
+            earnings = current_earnings(name)
+            context = {
+                "user": user,
+                "transactions": new_trans,
+                "Current_earnings": earnings,
+            }
         return render(request, "home.html", context)
     except Person.DoesNotExist:
         user = find_name(request.user)
@@ -111,28 +119,19 @@ def balancePage(request):
             bal = create_bal(balance)
             print("path1")
             person = create_person(find_name(request.user), bal, request.user.email)
-
             context = {"bal": bal, "user": person}
-            return render(request, "balance.html", context)
+            return redirect("home")
         else:
             user = find_person(request.user)
             print("path2")
             print(user.budget.balance)
-            context = {"user": user}
-            return render(request, "balance.html", context)
+            form = Transactions()
+            context = {"user": user, "form": form}
+        return render(request, "balance.html", context)
     except Person.DoesNotExist:
         context = {"user": None}
         print("path4")
         return render(request, "balance.html", context)
-
-
-def trans(request):
-    if request.method == "POST":
-        a = request.POST.get("name")
-        b = request.POST.get("money")
-        c = request.user
-        transaction(a, b, c)
-        return redirect("bal")
 
 
 ### WHERE DO I EVEN START HERE, because of how many Models I have I have to order this in a particular way so that nothing is left behind when the user is deleted, the only problem is the fact that some Models can only really be identified using ones of its links in a ForeignKey. If you delete the others path first there's a change that the on_delete=models.CASCADE might not delete the remanent of some Models.
@@ -249,6 +248,21 @@ def savingsPage(request):
     return redirect("home")
 
 
+def trans(request):
+    if request.method == "POST":
+        ITEM_NAME = request.POST.get("name")
+        GAIN_LOSS = request.POST.get("gain_loss")
+        if GAIN_LOSS == "on":
+            GAIN_LOSS = True
+        else:
+            GAIN_LOSS = False
+        MONEY_COST = request.POST.get("money")
+        USER_NAME = request.user
+
+        transaction(ITEM_NAME, GAIN_LOSS, MONEY_COST, USER_NAME)
+        return redirect("bal")
+
+
 ### Anything past here are just functions for keeping track of Models and create Models.
 
 
@@ -341,12 +355,20 @@ def import_data() -> None:
     )
 
 
-def transaction(a, b, c) -> None:
-    q = find_person(c)
-    trans = Banking_Changes(name=a, cost=b, user=q)
+def transaction(ITEM_NAME, GAIN_LOSS, MONEY_COST, USER_NAME) -> None:
+    PERSON_FOUND = find_person(USER_NAME)
+    trans = Banking_Changes(
+        name=ITEM_NAME,
+        gain_loss=GAIN_LOSS,
+        cost=MONEY_COST,
+        user=PERSON_FOUND,
+    )
     trans.save()
-    q.budget.balance -= int(trans.cost)
-    q.budget.save()
+    if trans.gain_loss == True:
+        PERSON_FOUND.budget.balance += int(trans.cost)
+    elif trans.gain_loss == False:
+        PERSON_FOUND.budget.balance -= int(trans.cost)
+    PERSON_FOUND.budget.save()
 
 
 def list_reverse(transactions: List) -> List:
@@ -360,3 +382,14 @@ def list_reverse(transactions: List) -> List:
         new_trans.append(transact[count])
         count += 1
     return new_trans
+
+
+def current_earnings(USER_NAME) -> int:
+    TRANSACTIONS_FOUND = find_transaction(USER_NAME)
+    i = 0
+    for each in TRANSACTIONS_FOUND:
+        if each.gain_loss == True:
+            i += each.cost
+        elif each.gain_loss == False:
+            i -= each.cost
+    return i
