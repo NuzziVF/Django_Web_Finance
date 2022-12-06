@@ -10,11 +10,15 @@
     <h1>Transaction:</h1>
     <form action="{% url 'trans' %}" method="post">
       {% csrf_token %}
-      <label> Name of Transaction: </label>
-      <input type="text" name="name" required />
-      <label> Cost: </label>
-      <input type="integer" name="money" required />
-      <button>submit</button>
+      <label for="name"> Name of Transaction: </label>
+      {{ form.name }}
+      <br />
+      <label for="gain_loss">Gain: </label>
+      {{ form.gain_loss }}
+      <br />
+      <label for="money"> Cost: </label>
+      {{ form.money }}
+      <input type="submit" value="Enter" />
     </form>
     <div>
       {% else %}
@@ -25,6 +29,7 @@
           {% csrf_token %}
           <label for="bal">Please Enter You're Current Balance:</label>
           <input type="text" name="bal" id="balance" placeholder="Balance..." />
+          <input type="submit" value="Enter Balance" />
         </form>
       </div>
     </div>
