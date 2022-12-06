@@ -87,10 +87,10 @@ def homePage(request):
             print("No transactions found")
             context = {"user": user}
         else:
-            transactions = find_transaction(name)
-            print(f"{len(transactions)} transactions found")
-            transactions = transactions.reverse()
-            context = {"user": user, "transactions": transactions}
+            new_trans = find_transaction(name)
+            print(f"{len(new_trans)} transactions found")
+            new_trans = list_reverse(new_trans)
+            context = {"user": user, "transactions": new_trans}
         return render(request, "home.html", context)
     except Person.DoesNotExist:
         user = find_name(request.user)
@@ -213,8 +213,25 @@ def editPage(request):
 
 
 @login_required(login_url="login")
-def savingsPage(request):
-    return redirect("home")
+def reviewsPage(request):
+    try:
+        name = request.user
+        user = find_person(name)
+        if len(find_transaction(name)) == 0:
+            print("No transactions found")
+            context = {"user": user}
+        else:
+
+            new_trans = find_transaction(name)
+            print(f"{len(new_trans)} transactions found")
+            new_trans = list_reverse(new_trans)
+
+            context = {"user": user, "transactions": new_trans}
+        return render(request, "reviews.html", context)
+    except Person.DoesNotExist:
+        user = find_name(request.user)
+        context = {"user": None}
+        return render(request, "reviews.html", context)
 
 
 @login_required(login_url="login")
@@ -225,6 +242,11 @@ def stonksPage(request):
     context = {"data": data}
 
     return render(request, "stonks.html", context)
+
+
+@login_required(login_url="login")
+def savingsPage(request):
+    return redirect("home")
 
 
 ### Anything past here are just functions for keeping track of Models and create Models.
@@ -266,12 +288,12 @@ def find_transaction(input_name) -> List:
     return t
 
 
-def find_stock_all():
+def find_stock_all() -> List:
     holder = Stock.objects.all()
     return holder
 
 
-def import_data():
+def import_data() -> None:
 
     engine = create_engine("sqlite:///db.sqlite3")
 
@@ -319,31 +341,22 @@ def import_data():
     )
 
 
-def transaction(a, b, c):
+def transaction(a, b, c) -> None:
     q = find_person(c)
     trans = Banking_Changes(name=a, cost=b, user=q)
     trans.save()
-    print(trans)
-    print(q.budget.balance)
     q.budget.balance -= int(trans.cost)
     q.budget.save()
-    print(q.budget.balance)
 
 
-@login_required(login_url="login")
-def reviewsPage(request):
-    try:
-        name = request.user
-        user = find_person(name)
-        if len(find_transaction(name)) == 0:
-            print("No transactions found")
-            context = {"user": user}
-        else:
-            transactions = find_transaction(name)
-            print(f"{len(transactions)} transactions found")
-            context = {"user": user, "transactions": transactions}
-        return render(request, "reviews.html", context)
-    except Person.DoesNotExist:
-        user = find_name(request.user)
-        context = {"user": None}
-        return render(request, "reviews.html", context)
+def list_reverse(transactions: List) -> List:
+    new_trans = []
+    transact = []
+    count = 0
+    transactions = reversed(transactions)
+    for x in transactions:
+        transact.append(x)
+    for x in range(0, 3):
+        new_trans.append(transact[count])
+        count += 1
+    return new_trans
