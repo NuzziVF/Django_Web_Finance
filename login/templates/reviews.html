@@ -14,7 +14,11 @@
         <li class="this-list">
           <b>Name</b>: {{each.name}}
           <ul class="sub-list">
-            <li><b>Cost</b>: {{each.cost}}</li>
+            {% if each.gain_loss == True %}
+            <li style="color: green"><b>Cost</b>: +{{each.cost}}</li>
+            {% else %}
+            <li style="color: red"><b>Cost</b>: -{{each.cost}}</li>
+            {% endif %}
             <li><b>Date</b>: {{each.date_added}}</li>
           </ul>
         </li>

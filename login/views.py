@@ -89,10 +89,7 @@ def homePage(request):
         else:
             new_trans = find_transaction(name)
             print(f"{len(new_trans)} transactions found")
-            if len(new_trans) < 3:
-                pass
-            else:
-                new_trans = list_reverse(new_trans)
+            new_trans = limit_to_three(list_reverse(new_trans))
             earnings = current_earnings(name)
             context = {
                 "user": user,
@@ -372,14 +369,18 @@ def transaction(ITEM_NAME, GAIN_LOSS, MONEY_COST, USER_NAME) -> None:
 
 
 def list_reverse(transactions: List) -> List:
-    new_trans = []
     transact = []
-    count = 0
     transactions = reversed(transactions)
     for x in transactions:
         transact.append(x)
+    return transact
+
+
+def limit_to_three(input_list):
+    new_trans = []
+    count = 0
     for x in range(0, 3):
-        new_trans.append(transact[count])
+        new_trans.append(input_list[count])
         count += 1
     return new_trans
 
